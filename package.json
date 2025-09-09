@@ -1,0 +1,23 @@
+{
+  "name": "clinic-management-platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Modular, microservices-based Clinic Management Software (CMS)",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "gateway",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run -ws build",
+    "dev": "npm run -ws dev",
+    "lint": "npm run -ws lint",
+    "start": "npm run -ws start",
+    "typecheck": "npm run -ws typecheck"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.6.0"
+  }
+}

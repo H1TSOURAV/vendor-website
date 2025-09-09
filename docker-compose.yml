@@ -1,0 +1,99 @@
+version: '3.9'
+services:
+  gateway:
+    build: ./gateway
+    image: cms/gateway:dev
+    environment:
+      - PORT=4000
+      - AUTH_URL=http://auth:4001
+      - PATIENT_URL=http://patient:4002
+      - APPOINTMENTS_URL=http://appointments:4003
+      - BILLING_URL=http://billing:4004
+      - AI_PRESCRIPTION_URL=http://ai-prescription:4005
+      - MANUAL_PRESCRIPTION_URL=http://manual-prescription:4006
+      - ACCOUNTS_URL=http://accounts:4007
+      - ANALYTICS_URL=http://analytics:4008
+    ports:
+      - "4000:4000"
+    depends_on:
+      - auth
+      - patient
+      - appointments
+      - billing
+      - ai-prescription
+      - manual-prescription
+      - accounts
+      - analytics
+  web:
+    build: ./apps/web
+    image: cms/web:dev
+    environment:
+      - GATEWAY_URL=http://gateway:4000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - gateway
+  auth:
+    build: ./services/auth
+    image: cms/auth:dev
+    environment:
+      - PORT=4001
+      - JWT_SECRET=devsecret
+    ports:
+      - "4001:4001"
+  patient:
+    build: ./services/patient
+    image: cms/patient:dev
+    environment:
+      - PORT=4002
+      - JWT_SECRET=devsecret
+    ports:
+      - "4002:4002"
+  appointments:
+    build: ./services/appointments
+    image: cms/appointments:dev
+    environment:
+      - PORT=4003
+      - JWT_SECRET=devsecret
+    ports:
+      - "4003:4003"
+  billing:
+    build: ./services/billing
+    image: cms/billing:dev
+    environment:
+      - PORT=4004
+      - JWT_SECRET=devsecret
+    ports:
+      - "4004:4004"
+  ai-prescription:
+    build: ./services/ai-prescription
+    image: cms/ai-prescription:dev
+    environment:
+      - PORT=4005
+      - JWT_SECRET=devsecret
+    ports:
+      - "4005:4005"
+  manual-prescription:
+    build: ./services/manual-prescription
+    image: cms/manual-prescription:dev
+    environment:
+      - PORT=4006
+      - JWT_SECRET=devsecret
+    ports:
+      - "4006:4006"
+  accounts:
+    build: ./services/accounts
+    image: cms/accounts:dev
+    environment:
+      - PORT=4007
+      - JWT_SECRET=devsecret
+    ports:
+      - "4007:4007"
+  analytics:
+    build: ./services/analytics
+    image: cms/analytics:dev
+    environment:
+      - PORT=4008
+      - JWT_SECRET=devsecret
+    ports:
+      - "4008:4008"

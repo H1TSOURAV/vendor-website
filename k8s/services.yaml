@@ -1,0 +1,311 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: cms/auth:dev
+          ports:
+            - containerPort: 4001
+          env:
+            - name: PORT
+              value: "4001"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth
+  namespace: cms
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: http
+      port: 4001
+      targetPort: 4001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: patient
+  template:
+    metadata:
+      labels:
+        app: patient
+    spec:
+      containers:
+        - name: patient
+          image: cms/patient:dev
+          ports:
+            - containerPort: 4002
+          env:
+            - name: PORT
+              value: "4002"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient
+  namespace: cms
+spec:
+  selector:
+    app: patient
+  ports:
+    - name: http
+      port: 4002
+      targetPort: 4002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointments
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appointments
+  template:
+    metadata:
+      labels:
+        app: appointments
+    spec:
+      containers:
+        - name: appointments
+          image: cms/appointments:dev
+          ports:
+            - containerPort: 4003
+          env:
+            - name: PORT
+              value: "4003"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointments
+  namespace: cms
+spec:
+  selector:
+    app: appointments
+  ports:
+    - name: http
+      port: 4003
+      targetPort: 4003
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: billing
+  template:
+    metadata:
+      labels:
+        app: billing
+    spec:
+      containers:
+        - name: billing
+          image: cms/billing:dev
+          ports:
+            - containerPort: 4004
+          env:
+            - name: PORT
+              value: "4004"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing
+  namespace: cms
+spec:
+  selector:
+    app: billing
+  ports:
+    - name: http
+      port: 4004
+      targetPort: 4004
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-prescription
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-prescription
+  template:
+    metadata:
+      labels:
+        app: ai-prescription
+    spec:
+      containers:
+        - name: ai-prescription
+          image: cms/ai-prescription:dev
+          ports:
+            - containerPort: 4005
+          env:
+            - name: PORT
+              value: "4005"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-prescription
+  namespace: cms
+spec:
+  selector:
+    app: ai-prescription
+  ports:
+    - name: http
+      port: 4005
+      targetPort: 4005
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: manual-prescription
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: manual-prescription
+  template:
+    metadata:
+      labels:
+        app: manual-prescription
+    spec:
+      containers:
+        - name: manual-prescription
+          image: cms/manual-prescription:dev
+          ports:
+            - containerPort: 4006
+          env:
+            - name: PORT
+              value: "4006"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: manual-prescription
+  namespace: cms
+spec:
+  selector:
+    app: manual-prescription
+  ports:
+    - name: http
+      port: 4006
+      targetPort: 4006
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: accounts
+  template:
+    metadata:
+      labels:
+        app: accounts
+    spec:
+      containers:
+        - name: accounts
+          image: cms/accounts:dev
+          ports:
+            - containerPort: 4007
+          env:
+            - name: PORT
+              value: "4007"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accounts
+  namespace: cms
+spec:
+  selector:
+    app: accounts
+  ports:
+    - name: http
+      port: 4007
+      targetPort: 4007
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics
+  namespace: cms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: analytics
+  template:
+    metadata:
+      labels:
+        app: analytics
+    spec:
+      containers:
+        - name: analytics
+          image: cms/analytics:dev
+          ports:
+            - containerPort: 4008
+          env:
+            - name: PORT
+              value: "4008"
+            - name: JWT_SECRET
+              value: devsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: analytics
+  namespace: cms
+spec:
+  selector:
+    app: analytics
+  ports:
+    - name: http
+      port: 4008
+      targetPort: 4008
